@@ -11,13 +11,27 @@
 //  Load data from json
 d3.json("../../samples.json").then(function(navelData) {
     console.log(navelData);
+    var names = navelData.map(data => data.names)
+    var metadata = navelData.map(data => data.metadata)
+    var samples = navelData.map(data => data.samples)
 }).catch(function(error) {
     console.log(error);
   });
 
-var dropdownMenu = d3.select("#selDataset")
+console.log(names);
+console.log(metadata);
+console.log(samples);
 
-dropdownMenu.selectAll()
+// Select drop down menu
+var dropdownMenu = d3.select("#selDataset")
+// Create menu options from json 'names' data 
+dropdownMenu.selectAll("option")
+  .data(navelData)
+  .enter()
+  .append("option")
+  .attr("value", d => d.names)
+  .text(d => d.names)
+ 
 
 //  Drop down menu hanlder
 function handleDropDown() {
