@@ -22,9 +22,9 @@ function init() {
   // d3.event.preventDefault();
 
   // Select the input value from the drop down menu
-  var dropdownMenu = d3.select("#selDataset")
+  var dropdownMenu = d3.select("#selDataset");
   var dataset = dropdownMenu.node().value;
-  console.log(dataset);
+  console.log(dropdownMenu);
 
   // Create menu options from json 'names' data 
   d3.json("../../samples.json").then(function (navelData) {
@@ -42,29 +42,30 @@ function init() {
     // Build the initial plots/metadata with the first sample
     var defaultSample = nameIDs[0];
     console.log(defaultSample);
-    
+
     // grabMeta(defaultSample);
     // buildPlot(defaultSample);
   });
 }
 
-// Call the init function
+// Call the init function to start the page
 init()
 
 
-  //   //  Drop down menu hanlder
-  //   function optionChanged() {
-  //     // Prevent page refresh
-  //     d3.event.preventDefault();
+//  Drop down menu hanlder
+function optionChanged() {
+  // Prevent page refresh
+  // d3.event.preventDefault();
 
-  //     // Select input value from drop down menu
-  //     var dataset = dropdownMenu.node().value;
-  //     console.log(dataset);
+  // Select input value from drop down menu
+  var dropdownMenu = d3.select("#selDataset");
+  var dataset = dropdownMenu.node().value;
+  console.log(dataset);
 
-  //     // Build the plot with the new stock
-  //     buildPlot(dataset);
-  //   }
-  
+  // Build plots with the new sample
+  // buildPlot(dataset);
+}
+
   // function buildPlot(dataset) {
 
   //     d3.json("../../samples.json").then(function (data) {
