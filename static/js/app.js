@@ -24,12 +24,12 @@ function init() {
   // Select the input value from the drop down menu
   var dropdownMenu = d3.select("#selDataset");
   var dataset = dropdownMenu.node().value;
-  console.log(dropdownMenu);
+  // console.log(dropdownMenu);
 
   // Create menu options from json 'names' data 
   d3.json("../../samples.json").then(function (navelData) {
     var nameIDs = navelData.names;
-    console.log(nameIDs);
+    // console.log(nameIDs);
 
     nameIDs.forEach(function (id) {
       return dropdownMenu
@@ -43,7 +43,7 @@ function init() {
     var defaultSample = nameIDs[0];
     console.log(defaultSample);
 
-    // grabMeta(defaultSample);
+    grabMeta(defaultSample);
     // buildPlot(defaultSample);
   });
 }
@@ -62,10 +62,32 @@ function optionChanged() {
   var dataset = dropdownMenu.node().value;
   console.log(dataset);
 
-  // Build plots with the new sample
+  // Build plots/grab metadata with the new sample
+  grabMeta(dataset);
   // buildPlot(dataset);
 }
 
+function grabMeta(dataset) {
+      // Access json data
+      d3.json("../../samples.json").then(function (navelData) {
+
+        // Grab metadata from the json object
+        var sampleMeta = navelData.metadata.filter(sample => sample.id === dataset);
+        console.log(sampleMeta);
+        // var stock = data.dataset.dataset_code;
+        // var startDate = data.dataset.start_date;
+        // var endDate = data.dataset.end_date;
+        // // Print the names of the columns
+        // console.log(data.dataset.column_names);
+        // // Print the data for each day
+        // console.log(data.dataset.data);
+        // var dates = data.dataset.data.map(row => row[0]);
+        // // console.log(dates);
+        // var closingPrices = data.dataset.data.map(row => row[4]);
+        // // console.log(closingPrices);
+      });
+
+    }
   // function buildPlot(dataset) {
 
   //     d3.json("../../samples.json").then(function (data) {
