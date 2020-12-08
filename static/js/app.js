@@ -30,20 +30,19 @@ function init() {
   d3.json("../../samples.json").then(function (navelData) {
     var nameIDs = navelData.names;
     console.log(nameIDs);
-    
-    nameIDs.forEach(function (sample) {
-      return dropdownMenu.selectAll("option")
-        .data(navelData)
-        .enter()
+
+    nameIDs.forEach(function (id) {
+      return dropdownMenu
         .append("option")
-        .attr("value", sample)
-        .text(sample);
+        .property("value", id)
+        .text(id);
     });
 
 
     // Build the initial plots/metadata with the first sample
     var defaultSample = nameIDs[0];
     console.log(defaultSample);
+    
     // grabMeta(defaultSample);
     // buildPlot(defaultSample);
   });
