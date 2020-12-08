@@ -1,23 +1,23 @@
-/**
- * Helper function to select navel data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - names
- * index 1 - metadata
- * index 2 - samples
- */
-function unpack(rows, index) {
-    return rows.map(function (row) {
-        return row[index];
-    });
-}
+// /**
+//  * Helper function to select navel data
+//  * Returns an array of values
+//  * @param {array} rows
+//  * @param {integer} index
+//  * index 0 - names
+//  * index 1 - metadata
+//  * index 2 - samples
+//  */
+// function unpack(rows, index) {
+//     return rows.map(function (row) {
+//         return row[index];
+//     });
+// }
 
-// Add event listener for submit button
-d3.select("#selDataset").on("change", optionChanged);
+// // Add event listener for submit button -ACTUALLY, I THINK THIS IS ALREADY IN THE HTML FILE(line 25)
+// d3.select("#selDataset").on("change", optionChanged);
 
 // Submit Button handler
-function optionChanged() {
+function init() {
     // Prevent the page from refreshing
     d3.event.preventDefault();
   
@@ -26,28 +26,25 @@ function optionChanged() {
     var dataset = dropdownMenu.node().value;
     console.log(dataset);
 
-    switch (dataset) {
-                case "dataset1":
-                    x = [1, 2, 3, 4, 5];
-                    y = [1, 2, 4, 8, 16];
-                    break;
-        
-                case "dataset2":
-                    x = [10, 20, 30, 40, 50];
-                    y = [1, 10, 100, 1000, 10000];
-                    break;
-        
-                case "dataset3":
-                    x = [100, 200, 300, 400, 500];
-                    y = [10, 100, 50, 10, 0];
-                    break;
-        
-                default:
-                    x = [1, 2, 3, 4, 5];
-                    y = [1, 2, 3, 4, 5];
-                    break;
-            }
-  
+    // Create menu options from json 'names' data 
+    dropdownMenu.selectAll("option")
+        .data(navelData)
+        .enter()
+        .append("option")
+        .attr("value", d => d.names)
+        .text(d => d.names)
+
+
+    //  Drop down menu hanlder
+    function optionChanged() {
+        // Prevent page refresh
+        d3.event.preventDefault();
+
+        // Select input value from drop down menu
+        var dataset = dropdownMenu.node().value;
+        console.log(dataset);
+    }
+
     // Build the plot with the new stock
     buildPlot(dataset);
   }
