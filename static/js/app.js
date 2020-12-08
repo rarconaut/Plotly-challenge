@@ -18,86 +18,97 @@
 
 // Submit Button handler
 function init() {
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
-  
-    // Select the input value from the drop down menu
-    var dropdownMenu = d3.select("#selDataset")
-    var dataset = dropdownMenu.node().value;
-    console.log(dataset);
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
 
-    // Create menu options from json 'names' data 
-    dropdownMenu.selectAll("option")
+  // Select the input value from the drop down menu
+  var dropdownMenu = d3.select("#selDataset")
+  var dataset = dropdownMenu.node().value;
+  console.log(dataset);
+
+  // Create menu options from json 'names' data 
+  d3.json("../../samples.json").then(function (navelData) {
+    var nameIDs = navelData.names;
+
+    nameIDs.forEach(function (sample) {
+      return dropdownMenu.selectAll("option")
         .data(navelData)
         .enter()
         .append("option")
-        .attr("value", d => d.names)
-        .text(d => d.names)
+        .attr("value", sample)
+        .text(sample);
+    });
 
+
+    // Build the initial plots/metadata with the first sample
+    var defaultSample = nameIDs[0];
+    console.log(defaultSample)
+    // grabMeta(defaultSample);
+    // buildPlot(defaultSample);
+  }
 
     //  Drop down menu hanlder
     function optionChanged() {
-        // Prevent page refresh
-        d3.event.preventDefault();
+      // Prevent page refresh
+      d3.event.preventDefault();
 
-        // Select input value from drop down menu
-        var dataset = dropdownMenu.node().value;
-        console.log(dataset);
+      // Select input value from drop down menu
+      var dataset = dropdownMenu.node().value;
+      console.log(dataset);
+
+      // Build the plot with the new stock
+      buildPlot(dataset);
     }
-
-    // Build the plot with the new stock
-    buildPlot(dataset);
-  }
   
   function buildPlot(dataset) {
-    
-    d3.json("../../samples.json").then(function(data) {
-      // Grab values from the response json object to build the plots
-      var name = data.dataset.name;
-      var stock = data.dataset.dataset_code;
-      var startDate = data.dataset.start_date;
-      var endDate = data.dataset.end_date;
-      // Print the names of the columns
-      console.log(data.dataset.column_names);
-      // Print the data for each day
-      console.log(data.dataset.data);
-      var dates = data.dataset.data.map(row => row[0]);
-      // console.log(dates);
-      var closingPrices = data.dataset.data.map(row => row[4]);
-      // console.log(closingPrices);
-  
-      var trace1 = {
-        type: "scatter",
-        mode: "lines",
-        name: name,
-        x: dates,
-        y: closingPrices,
-        line: {
-          color: "#17BECF"
-        }
-      };
-  
-      var data = [trace1];
-  
-      var layout = {
-        title: `${stock} closing prices`,
-        xaxis: {
-          range: [startDate, endDate],
-          type: "date"
-        },
-        yaxis: {
-          autorange: true,
-          type: "linear"
-        }
-      };
-  
-      Plotly.newPlot("plot", data, layout);
-  
-    });
-  }
-  
-  
-  
+
+      d3.json("../../samples.json").then(function (data) {
+        // Grab values from the response json object to build the plots
+        var name = data.dataset.name;
+        var stock = data.dataset.dataset_code;
+        var startDate = data.dataset.start_date;
+        var endDate = data.dataset.end_date;
+        // Print the names of the columns
+        console.log(data.dataset.column_names);
+        // Print the data for each day
+        console.log(data.dataset.data);
+        var dates = data.dataset.data.map(row => row[0]);
+        // console.log(dates);
+        var closingPrices = data.dataset.data.map(row => row[4]);
+        // console.log(closingPrices);
+
+        var trace1 = {
+          type: "scatter",
+          mode: "lines",
+          name: name,
+          x: dates,
+          y: closingPrices,
+          line: {
+            color: "#17BECF"
+          }
+        };
+
+        var data = [trace1];
+
+        var layout = {
+          title: `${stock} closing prices`,
+          xaxis: {
+            range: [startDate, endDate],
+            type: "date"
+          },
+          yaxis: {
+            autorange: true,
+            type: "linear"
+          }
+        };
+
+        Plotly.newPlot("plot", data, layout);
+
+      });
+    }
+
+
+
 
 
 
