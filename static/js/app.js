@@ -91,14 +91,15 @@ function buildPlots(dataset) {
     // Grab values from the response json object to build the plots
     var selectedSample = data.samples.filter(sample => sample.id === dataset)[0];
 
-    var sampleValues = selectedSample.sample_values
-    var otuIDs = selectedSample.otu_ids;
-    var otuLabels = selectedSample.otu_labels;
+    var sampleValues = selectedSample.sample_values.slice(0, 10)
+    var otuIDs = selectedSample.otu_ids.slice(0, 10);
+    var otuLabels = selectedSample.otu_labels.slice(0, 10);
 
     // Print the names of the columns
     console.log(dataset)
     // console.log(sampleValues, otuIDs, otuLabels);
 
+    // The horizonal bar graph
     var barh = {
       type: "bar",
       orientation: "h",
@@ -106,25 +107,51 @@ function buildPlots(dataset) {
       y: otuIDs,
     }
 
+    var data = [barh];
 
-  var data = [barh];
+    var layout = {
+      title: `Navel Biodiversity for Subject ${dataset}`,
+      // xaxis: {
+      //   range: [startDate, endDate],
+      //   type: "date"
+      // },
+      // yaxis: {
+      //   autorange: true,
+      //   type: "linear"
+      // }
+    };
 
-  var layout = {
-    title: `Navel Biodiversity for Subject ${dataset}`,
-    // xaxis: {
-    //   range: [startDate, endDate],
-    //   type: "date"
-    // },
-    // yaxis: {
-    //   autorange: true,
-    //   type: "linear"
-    // }
-  };
+    Plotly.newPlot("bar", data, layout);
 
-  Plotly.newPlot("bar", data, layout);
-
-});
+    // The bubble chart
+    var bubble = {
+      type: "scatter",
+      mode: "markers",
+      text: otuLabels,
+      x: otuIDs,
+      y: sampleValues,
+      marker: {
+        color: otuIDs,
+        size: sampleValues
+      }
     }
+
+    var data = [bubble];
+
+    var layout = {
+      title: `Navel Biodiversity for Subject ${dataset}`,
+      xaxis: {
+        title: "OTU IDs",
+      },
+      yaxis: {
+        title: "Sample Values"
+      }
+    };
+
+    Plotly.newPlot("bubble", data, layout);
+
+  });
+}
 
 
 
