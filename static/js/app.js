@@ -85,48 +85,45 @@ function grabMeta(dataset) {
   });
 }
 
-  function buildPlots(dataset) {
+function buildPlots(dataset) {
 
-      d3.json("../../samples.json").then(function (data) {
-        // Grab values from the response json object to build the plots
-        var selectedSample = data.samples.filter(sample => sample.id === dataset)[0];
-        
-        var sampleValues = selectedSample.sample_values
-        var otuIDs = selectedSample.otu_ids;
-        var otuLabels = selectedSample.otu_labels;
+  d3.json("../../samples.json").then(function (data) {
+    // Grab values from the response json object to build the plots
+    var selectedSample = data.samples.filter(sample => sample.id === dataset)[0];
 
-        // Print the names of the columns
-        console.log(dataset)
-        console.log(sampleValues, otuIDs, otuLabels);
-        
-        // var trace1 = {
-        //   type: "scatter",
-        //   mode: "lines",
-        //   name: name,
-        //   x: dates,
-        //   y: closingPrices,
-        //   line: {
-        //     color: "#17BECF"
-        //   }
-        // };
+    var sampleValues = selectedSample.sample_values
+    var otuIDs = selectedSample.otu_ids;
+    var otuLabels = selectedSample.otu_labels;
 
-        // var data = [trace1];
+    // Print the names of the columns
+    console.log(dataset)
+    // console.log(sampleValues, otuIDs, otuLabels);
 
-        // var layout = {
-        //   title: `${stock} closing prices`,
-        //   xaxis: {
-        //     range: [startDate, endDate],
-        //     type: "date"
-        //   },
-        //   yaxis: {
-        //     autorange: true,
-        //     type: "linear"
-        //   }
-        // };
+    var barh = {
+      type: "bar",
+      orientation: "h",
+      x: sampleValues,
+      y: otuIDs,
+    }
 
-        // Plotly.newPlot("plot", data, layout);
 
-      });
+  var data = [barh];
+
+  var layout = {
+    title: `Navel Biodiversity for Subject ${dataset}`,
+    // xaxis: {
+    //   range: [startDate, endDate],
+    //   type: "date"
+    // },
+    // yaxis: {
+    //   autorange: true,
+    //   type: "linear"
+    // }
+  };
+
+  Plotly.newPlot("bar", data, layout);
+
+});
     }
 
 
