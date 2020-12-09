@@ -72,7 +72,7 @@ function grabMeta(dataset) {
       d3.json("../../samples.json").then(function (navelData) {
 
         // Grab metadata from the json object
-        var sampleMeta = navelData.metadata.filter(sample => sample.id === dataset);
+        var sampleMeta = navelData.metadata.filter(sample => sample.id == dataset)[0];
         console.log(sampleMeta);
         // var stock = data.dataset.dataset_code;
         // var startDate = data.dataset.start_date;
