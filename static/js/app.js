@@ -16,14 +16,10 @@
 // // Add event listener for submit button -ACTUALLY, I THINK THIS IS ALREADY IN THE HTML FILE(line 25)
 // d3.select("#selDataset").on("change", optionChanged);
 
-// Submit Button handler
+// Initialize Dashboard with default dataset
 function init() {
-  // Prevent the page from refreshing
-  // d3.event.preventDefault();
-
   // Select the input value from the drop down menu
   var dropdownMenu = d3.select("#selDataset");
-  var dataset = dropdownMenu.node().value;
   // console.log(dropdownMenu);
 
   // Create menu options from json 'names' data 
@@ -38,13 +34,12 @@ function init() {
         .text(id);
     });
 
-
     // Build the initial plots/metadata with the first sample
     var defaultSample = nameIDs[0];
     console.log(defaultSample);
 
     grabMeta(defaultSample);
-    // buildPlot(defaultSample);
+    buildPlots(defaultSample);
   });
 }
 
@@ -64,7 +59,7 @@ function optionChanged() {
 
   // Build plots/grab metadata with the new sample
   grabMeta(dataset);
-  // buildPlot(dataset);
+  buildPlots(dataset);
 }
 
 function grabMeta(dataset) {
@@ -77,64 +72,62 @@ function grabMeta(dataset) {
 
     // Clear any previous metadata value before displaying current
     displayMeta = d3.select("#sample-metadata");
-    displayMeta.html("");    
+    displayMeta.html("");
 
     // Use `Object.entries` and `forEach` to iterate through keys and values
     Object.entries(sampleMeta).forEach(([key, value]) => {
       console.log(`Key: ${key} and Value ${value}`)
-      displayMeta.append("p")
+
+      displayMeta
+        .append("p")
         .text(`${key}: ${value}`)
     });
-
   });
-
 }
-  // function buildPlot(dataset) {
 
-  //     d3.json("../../samples.json").then(function (data) {
-  //       // Grab values from the response json object to build the plots
-  //       var name = data.dataset.name;
-  //       var stock = data.dataset.dataset_code;
-  //       var startDate = data.dataset.start_date;
-  //       var endDate = data.dataset.end_date;
-  //       // Print the names of the columns
-  //       console.log(data.dataset.column_names);
-  //       // Print the data for each day
-  //       console.log(data.dataset.data);
-  //       var dates = data.dataset.data.map(row => row[0]);
-  //       // console.log(dates);
-  //       var closingPrices = data.dataset.data.map(row => row[4]);
-  //       // console.log(closingPrices);
+  function buildPlots(dataset) {
 
-  //       var trace1 = {
-  //         type: "scatter",
-  //         mode: "lines",
-  //         name: name,
-  //         x: dates,
-  //         y: closingPrices,
-  //         line: {
-  //           color: "#17BECF"
-  //         }
-  //       };
+      d3.json("../../samples.json").then(function (data) {
+        // Grab values from the response json object to build the plots
+        var selectedSample = data.samples.filter(sample => sample.id === dataset)[0];
+        
+        var sampleValues = selectedSample.sample_values
+        var otuIDs = selectedSample.otu_ids;
+        var otuLabels = selectedSample.otu_labels;
 
-  //       var data = [trace1];
+        // Print the names of the columns
+        console.log(dataset)
+        console.log(sampleValues, otuIDs, otuLabels);
+        
+        // var trace1 = {
+        //   type: "scatter",
+        //   mode: "lines",
+        //   name: name,
+        //   x: dates,
+        //   y: closingPrices,
+        //   line: {
+        //     color: "#17BECF"
+        //   }
+        // };
 
-  //       var layout = {
-  //         title: `${stock} closing prices`,
-  //         xaxis: {
-  //           range: [startDate, endDate],
-  //           type: "date"
-  //         },
-  //         yaxis: {
-  //           autorange: true,
-  //           type: "linear"
-  //         }
-  //       };
+        // var data = [trace1];
 
-  //       Plotly.newPlot("plot", data, layout);
+        // var layout = {
+        //   title: `${stock} closing prices`,
+        //   xaxis: {
+        //     range: [startDate, endDate],
+        //     type: "date"
+        //   },
+        //   yaxis: {
+        //     autorange: true,
+        //     type: "linear"
+        //   }
+        // };
 
-  //     });
-  //   }
+        // Plotly.newPlot("plot", data, layout);
+
+      });
+    }
 
 
 
