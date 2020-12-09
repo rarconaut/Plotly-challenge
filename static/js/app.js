@@ -68,26 +68,27 @@ function optionChanged() {
 }
 
 function grabMeta(dataset) {
-      // Access json data
-      d3.json("../../samples.json").then(function (navelData) {
+  // Access json data
+  d3.json("../../samples.json").then(function (navelData) {
 
-        // Grab metadata from the json object
-        var sampleMeta = navelData.metadata.filter(sample => sample.id == dataset)[0];
-        console.log(sampleMeta);
-        // var stock = data.dataset.dataset_code;
-        // var startDate = data.dataset.start_date;
-        // var endDate = data.dataset.end_date;
-        // // Print the names of the columns
-        // console.log(data.dataset.column_names);
-        // // Print the data for each day
-        // console.log(data.dataset.data);
-        // var dates = data.dataset.data.map(row => row[0]);
-        // // console.log(dates);
-        // var closingPrices = data.dataset.data.map(row => row[4]);
-        // // console.log(closingPrices);
-      });
+    // Grab metadata from the json object
+    var sampleMeta = navelData.metadata.filter(sample => sample.id == dataset)[0];
+    console.log(sampleMeta);
 
-    }
+    // Clear any previous metadata value before displaying current
+    displayMeta = d3.select("#sample-metadata");
+    displayMeta.node().value = "";    
+
+    // Use `Object.entries` and `forEach` to iterate through keys and values
+    Object.entries(sampleMeta).forEach(([key, value]) => {
+      console.log(`Key: ${key} and Value ${value}`)
+      displayMeta.append("p")
+        .text(`${key}: ${value}`);
+    });
+
+  });
+
+}
   // function buildPlot(dataset) {
 
   //     d3.json("../../samples.json").then(function (data) {
