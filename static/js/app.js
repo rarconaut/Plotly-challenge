@@ -34,7 +34,7 @@ function init() {
     nameIDs.forEach(function (id) {
       return dropdownMenu
         .append("option")
-        .property("value", id)
+        .attr("value", id)
         .text(id);
     });
 
@@ -77,13 +77,13 @@ function grabMeta(dataset) {
 
     // Clear any previous metadata value before displaying current
     displayMeta = d3.select("#sample-metadata");
-    displayMeta.node().value = "";    
+    displayMeta.html("");    
 
     // Use `Object.entries` and `forEach` to iterate through keys and values
     Object.entries(sampleMeta).forEach(([key, value]) => {
       console.log(`Key: ${key} and Value ${value}`)
       displayMeta.append("p")
-        .text(`${key}: ${value}`);
+        .text(`${key}: ${value}`)
     });
 
   });
