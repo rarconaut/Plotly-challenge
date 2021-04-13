@@ -7,7 +7,7 @@ function init() {
   // console.log(dropdownMenu);
 
   // Create menu options from json 'names' data 
-  d3.json("../../samples.json").then(function (navelData) {
+  d3.json("samples.json").then(function (navelData) {
     var nameIDs = navelData.names;
     // console.log(nameIDs);
 
@@ -44,7 +44,7 @@ function optionChanged() {
 
 function grabMeta(dataset) {
   // Access json data
-  d3.json("../../samples.json").then(function (navelData) {
+  d3.json("samples.json").then(function (navelData) {
 
     // Grab metadata from the json object
     var sampleMeta = navelData.metadata.filter(sample => sample.id == dataset)[0];
@@ -67,7 +67,7 @@ function grabMeta(dataset) {
 
 function buildPlots(dataset) {
 
-  d3.json("../../samples.json").then(function (data) {
+  d3.json("samples.json").then(function (data) {
     // Grab values from the response json object to build the plots
     var selectedSample = data.samples.filter(sample => sample.id === dataset)[0];
 
