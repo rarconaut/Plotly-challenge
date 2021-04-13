@@ -8,7 +8,7 @@ You can select a dataset ID from the dropdown menu, to explore all the varieties
 
 ![image](https://user-images.githubusercontent.com/68246130/114627159-a80f3480-9c69-11eb-8a3f-6cc4b0473113.png)
 
-...query the dataset json, and then create the two Plotly charts.
+...and then, to query the dataset json and create the Demographic table and two Plotly charts (the horizontal bar chart and bubble diagram with tooltip popups, shown below).
 
 ![image](https://user-images.githubusercontent.com/68246130/114627235-c9702080-9c69-11eb-92e4-154374cd5dbe.png)
 
