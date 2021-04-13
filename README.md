@@ -4,7 +4,7 @@ This is an interactive dashboard to explore a Belly Button Biodiversity dataset,
 
 ![image](https://user-images.githubusercontent.com/68246130/114627022-67172000-9c69-11eb-98b8-d9229f4be890.png)
 
-You can select a dataset ID from the dropdown menu, to explore all the varieties of navel fauna & flora that were studied! The dropdown was created using d3 methods to: populate the menu's options, accept a user's input... 
+To start, you can select a dataset ID from the dropdown menu to explore all the varieties of navel fauna & flora that were studied. The dropdown is created using d3 methods to: populate the menu's options, accept a user's input... 
 
 ![image](https://user-images.githubusercontent.com/68246130/114627159-a80f3480-9c69-11eb-8a3f-6cc4b0473113.png)
 
@@ -16,7 +16,7 @@ You can select a dataset ID from the dropdown menu, to explore all the varieties
 ![image](https://user-images.githubusercontent.com/68246130/114627275-de4cb400-9c69-11eb-96b1-734c98b225ff.png)
 
 
-Enjoy!
+Enjoy navel gazing!
 
 
 
