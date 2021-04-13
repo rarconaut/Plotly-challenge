@@ -16,7 +16,7 @@ To start, you can select a dataset ID from the dropdown menu to explore all the 
 ![image](https://user-images.githubusercontent.com/68246130/114627275-de4cb400-9c69-11eb-96b1-734c98b225ff.png)
 
 
-Enjoy navel gazing!
+Enjoy the interactive navel gazing!
 
 
 
